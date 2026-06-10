@@ -570,11 +570,24 @@ else:
         ]].sort_values(by='anomaly_score', ascending=True)
         
         # Format amount for display
-        st.dataframe(
-            df_display.style.format({'amount': '{:,.2f}', 'anomaly_score': '{:.5f}'}), 
-            use_container_width=True, 
-            height=400
-        )
+# Format amount for display
+df_display_show = df_display.copy()
+
+if 'amount' in df_display_show.columns:
+    df_display_show['amount'] = df_display_show['amount'].apply(
+        lambda x: f"{x:,.2f}" if pd.notnull(x) else ""
+    )
+
+if 'anomaly_score' in df_display_show.columns:
+    df_display_show['anomaly_score'] = df_display_show['anomaly_score'].apply(
+        lambda x: f"{x:.5f}" if pd.notnull(x) else ""
+    )
+
+st.dataframe(
+    df_display_show,
+    use_container_width=True,
+    height=400
+)
         
         # Export buttons
         st.write("---")
