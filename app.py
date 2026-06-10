@@ -568,32 +568,31 @@ else:
             'channel', 'counterparty_bank', 'location', 
             'is_employee', 'anomaly_score', 'risk_level'
         ]].sort_values(by='anomaly_score', ascending=True)
-        
+
         # Format amount for display
-# Format amount for display
-df_display_show = df_display.copy()
+        df_display_show = df_display.copy()
 
-if 'amount' in df_display_show.columns:
-    df_display_show['amount'] = df_display_show['amount'].apply(
-        lambda x: f"{x:,.2f}" if pd.notnull(x) else ""
-    )
+        if 'amount' in df_display_show.columns:
+            df_display_show['amount'] = df_display_show['amount'].apply(
+                lambda x: f"{x:,.2f}" if pd.notnull(x) else ""
+            )
 
-if 'anomaly_score' in df_display_show.columns:
-    df_display_show['anomaly_score'] = df_display_show['anomaly_score'].apply(
-        lambda x: f"{x:.5f}" if pd.notnull(x) else ""
-    )
+        if 'anomaly_score' in df_display_show.columns:
+            df_display_show['anomaly_score'] = df_display_show['anomaly_score'].apply(
+                lambda x: f"{x:.5f}" if pd.notnull(x) else ""
+            )
 
-st.dataframe(
-    df_display_show,
-    use_container_width=True,
-    height=400
-)
-        
+        st.dataframe(
+            df_display_show,
+            use_container_width=True,
+            height=400
+        )
+
         # Export buttons
         st.write("---")
         st.subheader("Xuất dữ liệu")
         col_exp1, col_exp2 = st.columns(2)
-        
+
         with col_exp1:
             csv_data = df_display.to_csv(index=False).encode('utf-8')
             st.download_button(
@@ -603,7 +602,7 @@ st.dataframe(
                 mime="text/csv",
                 key="download_csv"
             )
-            
+
         with col_exp2:
             # Excel export
             buffer = io.BytesIO()
