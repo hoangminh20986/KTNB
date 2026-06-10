@@ -20,141 +20,193 @@ st.set_page_config(
 
 # Custom CSS for Apple's Liquid Glass (Glassmorphism) Aesthetic
 st.markdown("""
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-    /* Main Background with Apple Space & Neon Glow */
+    :root {
+        --bg-1: #07111f;
+        --bg-2: #0f172a;
+        --card: rgba(15, 23, 42, 0.72);
+        --card-2: rgba(30, 41, 59, 0.72);
+        --line: rgba(148, 163, 184, 0.18);
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --blue: #38bdf8;
+        --violet: #8b5cf6;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --red: #ef4444;
+    }
+
     .stApp {
-        background: radial-gradient(circle at 10% 20%, rgba(88, 28, 135, 0.15) 0%, rgba(15, 23, 42, 0.15) 50%, rgba(9, 9, 11, 1) 100%);
-        background-attachment: fixed;
-        color: #f1f5f9;
-        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background:
+            radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.13), transparent 28%),
+            radial-gradient(circle at 85% 5%, rgba(139, 92, 246, 0.15), transparent 30%),
+            linear-gradient(135deg, #020617 0%, #0f172a 55%, #111827 100%);
+        color: var(--text);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
     }
-    
-    /* Sidebar styling - Liquid Glass */
+
+    .block-container {
+        padding-top: 2.2rem;
+        padding-bottom: 2rem;
+        max-width: 1500px;
+    }
+
     [data-testid="stSidebar"] {
-        background-color: rgba(15, 23, 42, 0.6) !important;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96)) !important;
+        border-right: 1px solid var(--line);
     }
-    
-    /* Glossy Header text gradient */
+
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {
+        color: #f8fafc !important;
+    }
+
     h1, h2, h3 {
-        font-family: 'Outfit', sans-serif !important;
-        font-weight: 700 !important;
-        background: linear-gradient(135deg, #ffffff 40%, #c084fc 100%);
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        letter-spacing: -0.02em;
+        font-family: 'Inter', sans-serif !important;
+        letter-spacing: -0.035em;
+        color: #f8fafc !important;
     }
-    
-    /* Liquid Glass Cards */
+
+    .hero-card {
+        background:
+            linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(139, 92, 246, 0.12)),
+            rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 24px;
+        padding: 28px 30px;
+        margin-bottom: 22px;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-title {
+        font-size: 2.15rem;
+        line-height: 1.15;
+        font-weight: 800;
+        margin: 0;
+        color: #ffffff;
+    }
+
+    .hero-subtitle {
+        color: #cbd5e1;
+        margin-top: 10px;
+        font-size: 1rem;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        color: #cbd5e1;
+        font-size: 0.82rem;
+        margin-right: 8px;
+        margin-top: 14px;
+    }
+
     .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        padding: 24px;
-        margin-bottom: 20px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        background: var(--card);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-radius: 20px;
+        border: 1px solid var(--line);
+        box-shadow: 0 14px 45px rgba(0, 0, 0, 0.25);
+        padding: 22px;
+        margin-bottom: 18px;
     }
-    
+
     .glass-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(192, 132, 252, 0.3);
-        box-shadow: 0 12px 40px 0 rgba(168, 85, 247, 0.15);
+        border-color: rgba(56, 189, 248, 0.38);
+        box-shadow: 0 18px 55px rgba(14, 165, 233, 0.12);
     }
-    
-    /* Glossy Buttons */
-    div.stButton > button {
-        background: linear-gradient(135deg, rgba(147, 51, 234, 0.7) 0%, rgba(79, 70, 229, 0.7) 100%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-radius: 10px !important;
-        color: white !important;
-        font-family: 'Outfit', sans-serif !important;
-        font-weight: 600 !important;
-        padding: 10px 24px !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3) !important;
+
+    .metric-label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        font-weight: 700;
+    }
+
+    .metric-val {
+        font-size: 2.15rem;
+        font-weight: 800;
+        margin: 8px 0 5px 0;
+        letter-spacing: -0.05em;
+        color: #ffffff;
+    }
+
+    .metric-normal { color: var(--green); }
+    .metric-warning { color: var(--amber); }
+    .metric-emergency { color: var(--red); }
+
+    div.stButton > button,
+    div.stDownloadButton > button {
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%) !important;
+        border: 0 !important;
+        border-radius: 12px !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        padding: 0.68rem 1.1rem !important;
+        box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25) !important;
         width: 100%;
     }
-    
-    div.stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(147, 51, 234, 0.5) !important;
-        border-color: rgba(255, 255, 255, 0.4) !important;
-        background: linear-gradient(135deg, rgba(147, 51, 234, 0.9) 0%, rgba(79, 70, 229, 0.9) 100%) !important;
+
+    div.stButton > button:hover,
+    div.stDownloadButton > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 38px rgba(124, 58, 237, 0.30) !important;
     }
-    
-    /* Metrics display elements */
-    .metric-val {
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin: 5px 0;
-        letter-spacing: -0.03em;
-    }
-    
-    .metric-label {
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #94a3b8;
-    }
-    
-    .metric-emergency {
-        color: #ef4444;
-        text-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
-    }
-    
-    .metric-warning {
-        color: #f59e0b;
-        text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
-    }
-    
-    .metric-normal {
-        color: #10b981;
-        text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
-    }
-    
-    /* File uploader customizing */
+
     [data-testid="stFileUploader"] {
-        background: rgba(255, 255, 255, 0.02) !important;
-        border: 2px dashed rgba(255, 255, 255, 0.1) !important;
+        background: rgba(15, 23, 42, 0.62) !important;
+        border: 1.5px dashed rgba(56, 189, 248, 0.35) !important;
+        border-radius: 16px !important;
+        padding: 16px !important;
+    }
+
+    .stTextInput input,
+    .stNumberInput input,
+    .stSelectbox div[data-baseweb="select"] > div {
+        background: rgba(15, 23, 42, 0.75) !important;
+        border: 1px solid rgba(148, 163, 184, 0.25) !important;
         border-radius: 12px !important;
-        padding: 20px !important;
+        color: #f8fafc !important;
     }
-    
-    /* Customize Streamlit widgets values and backgrounds */
-    .stTextInput>div>div>input, .stSelectbox>div>div>div, .stNumberInput>div>div>input {
-        background-color: rgba(15, 23, 42, 0.5) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: white !important;
-        border-radius: 8px !important;
-    }
-    
-    /* Custom tab headers */
+
     .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background-color: rgba(255, 255, 255, 0.01) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        border-radius: 10px;
-        padding: 5px;
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.55);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 6px;
     }
-    
+
     .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        color: #94a3b8;
-        font-weight: 500;
-        padding: 8px 16px;
-        transition: all 0.2s ease;
+        border-radius: 12px;
+        padding: 10px 16px;
+        color: #cbd5e1;
+        font-weight: 700;
     }
-    
+
     .stTabs [aria-selected="true"] {
-        background-color: rgba(168, 85, 247, 0.2) !important;
-        color: white !important;
-        border-bottom: 2px solid #a855f7 !important;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(124, 58, 237, 0.35)) !important;
+        color: #ffffff !important;
+    }
+
+    [data-testid="stDataFrame"] {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .small-note {
+        color: #94a3b8;
+        font-size: 0.9rem;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -247,8 +299,13 @@ def train_model(X_scaled, n_estimators, contamination, random_state=42):
 # ---------------------------------------------------------
 # SIDEBAR CONTROLS
 # ---------------------------------------------------------
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg", width=50)
-st.sidebar.title("Điều khiển & Cấu hình")
+st.sidebar.markdown("""
+<div style="padding: 10px 4px 18px 4px;">
+    <div style="font-size: 1.35rem; font-weight: 800; color: #ffffff;">KTNB Risk Lab</div>
+    <div style="color: #94a3b8; font-size: 0.88rem; margin-top: 4px;">Anomaly Detection Dashboard</div>
+</div>
+""", unsafe_allow_html=True)
+st.sidebar.title("Cấu hình phân tích")
 
 # 1. File Upload
 st.sidebar.subheader("1. Nguồn Dữ Liệu")
@@ -266,8 +323,8 @@ st.sidebar.markdown(
     """
     <div style='text-align: center; color: #64748b; font-size: 0.8rem;'>
         <b>Hệ thống phát hiện giao dịch bất thường</b><br>
-        Giao diện <i>Liquid Glass</i> của Apple<br>
-        © 2026 DeepMind Pair Programming
+        Isolation Forest · Streamlit Cloud<br>
+        Phiên bản demo phục vụ kiểm toán nội bộ
     </div>
     """, 
     unsafe_allow_html=True
@@ -327,8 +384,19 @@ else:
     # ---------------------------------------------------------
     # APP HEADER
     # ---------------------------------------------------------
-    st.title("💎 Hệ thống Phát hiện Giao dịch Bất thường")
-    st.markdown(f"Đang hiển thị phân tích từ nguồn dữ liệu: `{source_name}` (Gồm {total_txns:,} giao dịch)")
+    st.markdown(f"""
+    <div class="hero-card">
+        <div class="hero-title">💎 Hệ thống phát hiện giao dịch bất thường</div>
+        <div class="hero-subtitle">
+            Dashboard hỗ trợ kiểm toán nội bộ nhận diện giao dịch lệch chuẩn bằng mô hình Isolation Forest.
+        </div>
+        <div>
+            <span class="pill">📁 Nguồn dữ liệu: <b>{source_name}</b></span>
+            <span class="pill">🧾 Số giao dịch: <b>{total_txns:,}</b></span>
+            <span class="pill">⚙️ Contamination: <b>{contamination:.2%}</b></span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
     # ---------------------------------------------------------
     # MAIN DASHBOARD METRICS (Liquid Glass Columns)
